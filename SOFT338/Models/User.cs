@@ -28,6 +28,19 @@ namespace SOFT338.Models
                 this.password = BCrypt.Net.BCrypt.HashPassword(value, salt);
             }
         }
+
+        /// <summary>
+        /// Returns an anonymous object including only the model fields which are appropriate for output.
+        /// </summary>
+        /// <returns>The anonymous object suitible for output to the client.</returns>
+        public Object GetOutputObject()
+        {
+            return new
+            {
+                Id = this.Id,
+                Email = this.Email
+            };
+        }
     }
 
     public class UniqueEmailAttribute : ValidationAttribute

@@ -26,7 +26,7 @@ namespace SOFT338.Controllers
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(user.GetOutputObject());
         }
 
         // POST: api/Users
@@ -41,8 +41,7 @@ namespace SOFT338.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-            // We're returning an anonymous object here in order to exclude the password field in the response
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, new { Id = user.Id, Email = user.Email });
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user.GetOutputObject());
         }
 
         protected override void Dispose(bool disposing)
