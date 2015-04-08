@@ -48,7 +48,7 @@ namespace SOFT338.Filters
                             // Check password
                             if (user.CheckPassword(password))
                             {
-                                GenericIdentity identity = new GenericIdentity(user.Email);
+                                GenericIdentity identity = new GenericIdentity(user.Id.ToString());
                                 GenericPrincipal principal = new GenericPrincipal(identity, new string[] { "User" });
                                 context.Principal = principal;
                             }

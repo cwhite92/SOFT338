@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using SOFT338.Models;
 using SOFT338.Filters;
+using System.Web;
 
 namespace SOFT338.Controllers
 {
@@ -28,7 +29,11 @@ namespace SOFT338.Controllers
                 return NotFound();
             }
 
-            var test = System.Web.HttpContext.Current.User;
+            // Check that the authenticated user is accessing themselves
+            if (HttpContext.Current.User.Identity.Name != id.ToString())
+            {
+                return NotFound();
+            }
 
             return Ok(user.GetOutputObject());
         }
