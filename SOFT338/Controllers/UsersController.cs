@@ -16,12 +16,6 @@ namespace SOFT338.Controllers
     {
         private ApiDbContext db = new ApiDbContext();
 
-        // GET: api/Users
-        public IQueryable<User> GetUsers()
-        {
-            return db.Users;
-        }
-
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         public IHttpActionResult GetUser(int id)
@@ -33,41 +27,6 @@ namespace SOFT338.Controllers
             }
 
             return Ok(user);
-        }
-
-        // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST: api/Users
@@ -86,22 +45,6 @@ namespace SOFT338.Controllers
             return CreatedAtRoute("DefaultApi", new { id = user.Id }, new { Id = user.Id, Email = user.Email });
         }
 
-        // DELETE: api/Users/5
-        [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
-        {
-            User user = db.Users.Find(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            db.Users.Remove(user);
-            db.SaveChanges();
-
-            return Ok(user);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -109,11 +52,6 @@ namespace SOFT338.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool UserExists(int id)
-        {
-            return db.Users.Count(e => e.Id == id) > 0;
         }
     }
 }
