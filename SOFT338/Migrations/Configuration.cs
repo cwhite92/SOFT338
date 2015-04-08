@@ -6,14 +6,14 @@ namespace SOFT338.Migrations
     using System.Linq;
     using SOFT338.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SOFT338.Models.APIContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SOFT338.Models.ApiDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SOFT338.Models.APIContext context)
+        protected override void Seed(SOFT338.Models.ApiDbContext context)
         {
             // TODO: Seed some sensible example data
         }

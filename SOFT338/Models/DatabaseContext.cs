@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SOFT338.Models
 {
-    public class APIContext : DbContext
+    public class ApiDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
     }

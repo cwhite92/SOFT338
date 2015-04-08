@@ -14,7 +14,7 @@ namespace SOFT338.Controllers
 {
     public class UsersController : ApiController
     {
-        private APIContext db = new APIContext();
+        private ApiDbContext db = new ApiDbContext();
 
         // GET: api/Users
         public IQueryable<User> GetUsers()
@@ -82,7 +82,8 @@ namespace SOFT338.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            // We're returning an anonymous object here in order to exclude the password field in the response
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, new { Id = user.Id, Email = user.Email });
         }
 
         // DELETE: api/Users/5
