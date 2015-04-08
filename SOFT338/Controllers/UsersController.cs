@@ -14,7 +14,7 @@ using System.Web;
 
 namespace SOFT338.Controllers
 {
-    public class UsersController : ApiController
+    public class UsersController : BaseController
     {
         private ApiDbContext db = new ApiDbContext();
 
