@@ -14,19 +14,16 @@ namespace SOFT338.Models
         public string Email { get; set; }
 
         [Required]
-        private string password;
-        public string Password
+        public string Password { get; set; }
+
+        /// <summary>
+        /// Checks the stored password against the one supplied.
+        /// </summary>
+        /// <param name="password">The password to check.</param>
+        /// <returns>True if the supplied password is correct, false otherwise.</returns>
+        public bool CheckPassword(string password)
         {
-            get
-            {
-                return this.password;
-            }
-            set
-            {
-                // Hash the password using bcrypt
-                var salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-                this.password = BCrypt.Net.BCrypt.HashPassword(value, salt);
-            }
+            return BCrypt.Net.BCrypt.Verify(password, this.Password);
         }
 
         /// <summary>

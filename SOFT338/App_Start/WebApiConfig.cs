@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOFT338.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,6 +11,8 @@ namespace SOFT338
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            //config.Filters.Add(new BasicAuthenticator("api"));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
