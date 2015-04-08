@@ -16,8 +16,6 @@ namespace SOFT338.Controllers
 {
     public class UsersController : BaseController
     {
-        private ApiDbContext db = new ApiDbContext();
-
         // GET: api/Users/5
         [ResponseType(typeof(User))]
         [BasicAuthenticator]
@@ -56,15 +54,6 @@ namespace SOFT338.Controllers
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = user.Email }, user.GetOutputObject());
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
