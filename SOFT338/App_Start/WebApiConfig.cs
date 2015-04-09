@@ -12,8 +12,6 @@ namespace SOFT338
         {
             // Web API configuration and services
 
-            //config.Filters.Add(new BasicAuthenticator("api"));
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
