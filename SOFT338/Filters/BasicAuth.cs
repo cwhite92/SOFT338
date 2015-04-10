@@ -16,7 +16,7 @@ using System.Web.Http.Results;
 
 namespace SOFT338.Filters
 {
-    public class BasicAuthenticator : Attribute, IAuthenticationFilter
+    public class BasicAuth : Attribute, IAuthenticationFilter
     {
         // All of our endpoints reside under the same realm, hence it's okay to statically define it here
         private string realm = "api";
@@ -32,6 +32,7 @@ namespace SOFT338.Filters
             {
                 try
                 {
+                    // Convert from base64
                     Encoding encoding = Encoding.GetEncoding("utf-8");
                     string credentials = encoding.GetString(Convert.FromBase64String(request.Headers.Authorization.Parameter));
 
@@ -41,11 +42,12 @@ namespace SOFT338.Filters
 
                     using (ApiDbContext db = new ApiDbContext())
                     {
+                        // Find a user with this email
                         User user = db.Users.Where(u => u.Email == email).FirstOrDefault();
 
                         if (user != null)
                         {
-                            // Check password
+                            // Verify their password
                             if (user.CheckPassword(password))
                             {
                                 GenericIdentity identity = new GenericIdentity(user.Id.ToString());
@@ -73,6 +75,7 @@ namespace SOFT338.Filters
             }
             else
             {
+                // No Authorization header set
                 context.ErrorResult = new UnauthorizedResult(new AuthenticationHeaderValue[0], context.Request);
             }
 

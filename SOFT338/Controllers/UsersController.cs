@@ -18,7 +18,7 @@ namespace SOFT338.Controllers
     {
         // GET: api/Users/5
         [ResponseType(typeof(User))]
-        [BasicAuthenticator]
+        [BasicAuth]
         public IHttpActionResult GetUser(int id)
         {
             User user = db.Users.Find(id);

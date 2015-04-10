@@ -159,7 +159,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Filters\BasicAuthenticator.cs" />
+    <Compile Include="Filters\BasicAuth.cs" />
+    <Compile Include="Filters\RateLimit.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
