@@ -10,8 +10,7 @@ namespace SOFT338
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
+            // Register global filters
             config.Filters.Add(new RateLimit());
 
             // Web API routes
