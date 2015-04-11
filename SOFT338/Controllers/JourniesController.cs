@@ -12,10 +12,8 @@ using SOFT338.Models;
 
 namespace SOFT338.Controllers
 {
-    public class JourniesController : ApiController
+    public class JourniesController : BaseController
     {
-        private ApiDbContext db = new ApiDbContext();
-
         // GET: api/Journies
         public IQueryable<Journey> GetJourneys()
         {
@@ -99,15 +97,6 @@ namespace SOFT338.Controllers
             db.SaveChanges();
 
             return Ok(journey);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool JourneyExists(int id)
