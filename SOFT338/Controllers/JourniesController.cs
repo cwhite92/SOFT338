@@ -9,9 +9,11 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SOFT338.Models;
+using SOFT338.Filters;
 
 namespace SOFT338.Controllers
 {
+    [BasicAuth]
     public class JourniesController : BaseController
     {
         // GET: api/Journies
