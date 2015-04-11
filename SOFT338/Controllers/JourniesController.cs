@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using SOFT338.Models;
 using SOFT338.Filters;
+using System.Web;
 
 namespace SOFT338.Controllers
 {
@@ -19,7 +20,9 @@ namespace SOFT338.Controllers
         // GET: api/Journies
         public IQueryable<Journey> GetJourneys()
         {
-            return db.Journeys;
+            // TODO: make this not return user data
+            int userId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+            return db.Journeys.Where(j => j.UserId == userId);
         }
 
         // GET: api/Journies/5
@@ -32,13 +35,22 @@ namespace SOFT338.Controllers
                 return NotFound();
             }
 
-            return Ok(journey);
+            // Ensure user is only getting their own journey
+            if (HttpContext.Current.User.Identity.Name != journey.UserId.ToString())
+            {
+                return NotFound();
+            }
+
+            return Ok(journey.GetOutputObject());
         }
 
         // PUT: api/Journies/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutJourney(int id, Journey journey)
         {
+            journey.Id = id;
+            journey.UserId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -74,6 +86,9 @@ namespace SOFT338.Controllers
         [ResponseType(typeof(Journey))]
         public IHttpActionResult PostJourney(Journey journey)
         {
+            // Add authed user ID to model
+            journey.UserId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -82,7 +97,7 @@ namespace SOFT338.Controllers
             db.Journeys.Add(journey);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = journey.Id }, journey);
+            return CreatedAtRoute("DefaultApi", new { id = journey.Id }, journey.GetOutputObject());
         }
 
         // DELETE: api/Journies/5
@@ -95,10 +110,16 @@ namespace SOFT338.Controllers
                 return NotFound();
             }
 
+            // Ensure the user is deleting one of their own journies
+            if (HttpContext.Current.User.Identity.Name != journey.UserId.ToString())
+            {
+                return NotFound();
+            }
+
             db.Journeys.Remove(journey);
             db.SaveChanges();
 
-            return Ok(journey);
+            return Ok(journey.GetOutputObject());
         }
 
         private bool JourneyExists(int id)

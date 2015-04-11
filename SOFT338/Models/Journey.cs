@@ -20,5 +20,18 @@ namespace SOFT338.Models
 
         // Relationships
         public virtual User User { get; set; }
+
+        /// <summary>
+        /// Returns an anonymous object including only the model fields which are appropriate for output.
+        /// </summary>
+        /// <returns>The anonymous object suitible for output to the client.</returns>
+        public Object GetOutputObject()
+        {
+            return new
+            {
+                Title = this.Title,
+                Date = this.Date
+            };
+        }
     }
 }
