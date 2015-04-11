@@ -16,19 +16,20 @@ namespace SOFT338.Controllers
 {
     public class UsersController : BaseController
     {
-        // GET: api/Users/5
         [ResponseType(typeof(User))]
         [BasicAuth]
-        public IHttpActionResult GetUser(int id)
+        [Route("api/v1/users/{userId}", Name="GetUser")]
+        [HttpGet]
+        public IHttpActionResult GetUser(int userId)
         {
-            User user = db.Users.Find(id);
+            User user = db.Users.Find(userId);
             if (user == null)
             {
                 return NotFound();
             }
 
             // Check that the authenticated user is accessing themselves
-            if (HttpContext.Current.User.Identity.Name != id.ToString())
+            if (HttpContext.Current.User.Identity.Name != userId.ToString())
             {
                 return NotFound();
             }
@@ -36,9 +37,10 @@ namespace SOFT338.Controllers
             return Ok(user.GetOutputObject());
         }
 
-        // POST: api/Users
         [ResponseType(typeof(User))]
         [AllowAnonymous]
+        [Route("api/v1/users", Name="PostUser")]
+        [HttpPost]
         public IHttpActionResult PostUser(User user)
         {
             if (!ModelState.IsValid)
@@ -53,7 +55,7 @@ namespace SOFT338.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = user.Email }, user.GetOutputObject());
+            return CreatedAtRoute("GetUser", new { userId = user.Id }, user.GetOutputObject());
         }
     }
 }

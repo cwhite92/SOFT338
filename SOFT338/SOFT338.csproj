@@ -159,6 +159,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JourniesController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\BasicAuth.cs" />
     <Compile Include="Filters\RateLimit.cs" />
@@ -181,9 +182,14 @@
     <Compile Include="Migrations\201504111456489_CreateJourniesTable.Designer.cs">
       <DependentUpon>201504111456489_CreateJourniesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504112220490_CreateLogsTable.cs" />
+    <Compile Include="Migrations\201504112220490_CreateLogsTable.Designer.cs">
+      <DependentUpon>201504112220490_CreateLogsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Journey.cs" />
+    <Compile Include="Models\Log.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -258,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504111456489_CreateJourniesTable.resx">
       <DependentUpon>201504111456489_CreateJourniesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504112220490_CreateLogsTable.resx">
+      <DependentUpon>201504112220490_CreateLogsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

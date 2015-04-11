@@ -11,5 +11,7 @@ namespace SOFT338.Models
         public DbSet<User> Users { get; set; }
 
         public System.Data.Entity.DbSet<SOFT338.Models.Journey> Journeys { get; set; }
+
+        public System.Data.Entity.DbSet<SOFT338.Models.Log> Logs { get; set; }
     }
 }

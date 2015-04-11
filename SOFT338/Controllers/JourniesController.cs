@@ -17,7 +17,8 @@ namespace SOFT338.Controllers
     [BasicAuth]
     public class JourniesController : BaseController
     {
-        // GET: api/Journies
+        [Route("api/v1/journies", Name="GetJournies")]
+        [HttpGet]
         public IQueryable<Journey> GetJourneys()
         {
             // TODO: make this not return user data
@@ -25,11 +26,12 @@ namespace SOFT338.Controllers
             return db.Journeys.Where(j => j.UserId == userId);
         }
 
-        // GET: api/Journies/5
         [ResponseType(typeof(Journey))]
-        public IHttpActionResult GetJourney(int id)
+        [Route("api/v1/journies/{journeyId}", Name="GetJourney")]
+        [HttpGet]
+        public IHttpActionResult GetJourney(int journeyId)
         {
-            Journey journey = db.Journeys.Find(id);
+            Journey journey = db.Journeys.Find(journeyId);
             if (journey == null)
             {
                 return NotFound();
@@ -44,11 +46,12 @@ namespace SOFT338.Controllers
             return Ok(journey.GetOutputObject());
         }
 
-        // PUT: api/Journies/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutJourney(int id, Journey journey)
+        [Route("api/v1/journies/{journeyId}", Name="PutJourney")]
+        [HttpPut]
+        public IHttpActionResult PutJourney(int journeyId, Journey journey)
         {
-            journey.Id = id;
+            journey.Id = journeyId;
             journey.UserId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
 
             if (!ModelState.IsValid)
@@ -56,7 +59,7 @@ namespace SOFT338.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != journey.Id)
+            if (journeyId != journey.Id)
             {
                 return BadRequest();
             }
@@ -69,7 +72,7 @@ namespace SOFT338.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!JourneyExists(id))
+                if (!JourneyExists(journeyId))
                 {
                     return NotFound();
                 }
@@ -82,8 +85,9 @@ namespace SOFT338.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Journies
         [ResponseType(typeof(Journey))]
+        [Route("api/v1/journies", Name="PostJourney")]
+        [HttpPost]
         public IHttpActionResult PostJourney(Journey journey)
         {
             // Add authed user ID to model
@@ -97,14 +101,15 @@ namespace SOFT338.Controllers
             db.Journeys.Add(journey);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = journey.Id }, journey.GetOutputObject());
+            return CreatedAtRoute("GetJourney", new { journeyId = journey.Id }, journey.GetOutputObject());
         }
 
-        // DELETE: api/Journies/5
         [ResponseType(typeof(Journey))]
-        public IHttpActionResult DeleteJourney(int id)
+        [Route("api/v1/journies/{journeyId}", Name="DeleteJourney")]
+        [HttpDelete]
+        public IHttpActionResult DeleteJourney(int journeyId)
         {
-            Journey journey = db.Journeys.Find(id);
+            Journey journey = db.Journeys.Find(journeyId);
             if (journey == null)
             {
                 return NotFound();

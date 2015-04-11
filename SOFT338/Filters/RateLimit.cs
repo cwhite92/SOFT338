@@ -87,9 +87,12 @@ namespace SOFT338.Filters
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             // For this method to be executed the client has not hit the rate limit, all we need to do is add the headers
-            actionExecutedContext.Response.Headers.Add("X-RateLimit-Limit", MAX_REQS_PER_MINUTE.ToString());
-            actionExecutedContext.Response.Headers.Add("X-RateLimit-Remaining", HttpRuntime.Cache.Get(this.key).ToString());
-            actionExecutedContext.Response.Headers.Add("X-RateLimit-Reset", this.getCacheExpiry(this.key).ToString("s"));
+            if (actionExecutedContext.Response != null)
+            {
+                actionExecutedContext.Response.Headers.Add("X-RateLimit-Limit", MAX_REQS_PER_MINUTE.ToString());
+                actionExecutedContext.Response.Headers.Add("X-RateLimit-Remaining", HttpRuntime.Cache.Get(this.key).ToString());
+                actionExecutedContext.Response.Headers.Add("X-RateLimit-Reset", this.getCacheExpiry(this.key).ToString("s"));
+            }
 
             base.OnActionExecuted(actionExecutedContext);
         }

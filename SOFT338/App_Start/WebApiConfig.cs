@@ -10,17 +10,11 @@ namespace SOFT338
     {
         public static void Register(HttpConfiguration config)
         {
-            // Register global filters
-            config.Filters.Add(new RateLimit());
-
-            // Web API routes
+            // Use attributes defined on controller actions for routing
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/v1/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            // Register global filters
+            config.Filters.Add(new RateLimit());
         }
     }
 }
