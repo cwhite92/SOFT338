@@ -17,7 +17,7 @@ namespace SOFT338.Filters
         /// <summary>
         /// The maximum number of API requests allowed per minute.
         /// </summary>
-        public const int MAX_REQS_PER_MINUTE = 5;
+        public const int MAX_REQS_PER_MINUTE = 60;
 
         /// <summary>
         /// Represents the cache entry key.
