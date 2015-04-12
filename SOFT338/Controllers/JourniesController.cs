@@ -101,7 +101,7 @@ namespace SOFT338.Controllers
             db.Journeys.Add(journey);
             db.SaveChanges();
 
-            return CreatedAtRoute("GetJourney", new { journeyId = journey.Id }, journey.GetOutputObject());
+            return CreatedAtRoute("GetJourney", new { journeyId = journey.Id }, journey.GetOutputObject(false));
         }
 
         [ResponseType(typeof(Journey))]
@@ -124,7 +124,7 @@ namespace SOFT338.Controllers
             db.Journeys.Remove(journey);
             db.SaveChanges();
 
-            return Ok(journey.GetOutputObject());
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         private bool JourneyExists(int id)

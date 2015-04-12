@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201504112220490_CreateLogsTable.Designer.cs">
       <DependentUpon>201504112220490_CreateLogsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504121649336_CreateSpacialFields.cs" />
+    <Compile Include="Migrations\201504121649336_CreateSpacialFields.Designer.cs">
+      <DependentUpon>201504121649336_CreateSpacialFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Journey.cs" />
@@ -267,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504112220490_CreateLogsTable.resx">
       <DependentUpon>201504112220490_CreateLogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504121649336_CreateSpacialFields.resx">
+      <DependentUpon>201504121649336_CreateSpacialFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

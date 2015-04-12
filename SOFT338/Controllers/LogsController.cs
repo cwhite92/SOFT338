@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using SOFT338.Models;
+using System.Data.Entity.Spatial;
 
 namespace SOFT338.Controllers
 {
@@ -37,7 +38,7 @@ namespace SOFT338.Controllers
                 return NotFound();
             }
 
-            return Ok(log);
+            return Ok(log.GetOutputObject());
         }
 
         [ResponseType(typeof(void))]
@@ -96,6 +97,10 @@ namespace SOFT338.Controllers
 
             log.JourneyId = journeyId;
 
+            // Convert lat and long into a DbGeography-compatible format
+            string coordinates = String.Format("POINT({0} {1})", log.Latitude, log.Longitude);
+            log.Location = DbGeography.FromText(coordinates);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -104,7 +109,7 @@ namespace SOFT338.Controllers
             db.Logs.Add(log);
             db.SaveChanges();
 
-            return CreatedAtRoute("GetLog", new { journeyId = journeyId, logId = log.Id }, log);
+            return CreatedAtRoute("GetLog", new { journeyId = journeyId, logId = log.Id }, log.GetOutputObject(false));
         }
 
         [ResponseType(typeof(Log))]
@@ -126,7 +131,7 @@ namespace SOFT338.Controllers
             db.Logs.Remove(log);
             db.SaveChanges();
 
-            return Ok(log);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         private bool JourneyExists(int id)

@@ -20,13 +20,36 @@ namespace SOFT338.Models
 
         // Relationships
         public virtual User User { get; set; }
+        public virtual ICollection<Log> Logs { get; set; }
 
         /// <summary>
         /// Returns an anonymous object including only the model fields which are appropriate for output.
         /// </summary>
         /// <returns>The anonymous object suitible for output to the client.</returns>
-        public Object GetOutputObject()
+        public Object GetOutputObject(bool withLogs = true)
         {
+            if (withLogs)
+            {
+                List<object> output = new List<object>();
+
+                using (ApiDbContext db = new ApiDbContext())
+                {
+                    List<Log> logs = db.Logs.Where(l => l.JourneyId == this.Id).ToList();
+
+                    foreach (Log log in db.Logs.Where(l => l.JourneyId == this.Id))
+                    {
+                        output.Add(log.GetOutputObject(false));
+                    }
+                }
+
+                return new
+                {
+                    Title = this.Title,
+                    Date = this.Date,
+                    Logs = output
+                };
+            }
+
             return new
             {
                 Title = this.Title,
