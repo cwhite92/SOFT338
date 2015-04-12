@@ -26,6 +26,11 @@ namespace SOFT338.Controllers
         [HttpGet]
         public IHttpActionResult GetLog(int journeyId, int logId)
         {
+            if (!this.JourneyExists(journeyId))
+            {
+                return NotFound();
+            }
+
             Log log = db.Logs.Find(logId);
             if (log == null)
             {
@@ -40,6 +45,11 @@ namespace SOFT338.Controllers
         [HttpPut]
         public IHttpActionResult PutLog(int journeyId, int logId, Log log)
         {
+            if (!this.JourneyExists(journeyId))
+            {
+                return NotFound();
+            }
+
             log.Id = logId;
             log.JourneyId = journeyId;
 
@@ -79,6 +89,11 @@ namespace SOFT338.Controllers
         [HttpPost]
         public IHttpActionResult PostLog(int journeyId, Log log)
         {
+            if (!this.JourneyExists(journeyId))
+            {
+                return NotFound();
+            }
+
             log.JourneyId = journeyId;
 
             if (!ModelState.IsValid)
@@ -97,6 +112,11 @@ namespace SOFT338.Controllers
         [HttpDelete]
         public IHttpActionResult DeleteLog(int journeyId, int logId)
         {
+            if (!this.JourneyExists(journeyId))
+            {
+                return NotFound();
+            }
+
             Log log = db.Logs.Find(logId);
             if (log == null)
             {
@@ -107,6 +127,11 @@ namespace SOFT338.Controllers
             db.SaveChanges();
 
             return Ok(log);
+        }
+
+        private bool JourneyExists(int id)
+        {
+            return db.Journeys.Count(e => e.Id == id) > 0;
         }
 
         private bool LogExists(int id)
