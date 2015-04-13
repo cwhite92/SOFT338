@@ -125,6 +125,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Apis\PostcodeApi.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -190,6 +191,10 @@
     <Compile Include="Migrations\201504121649336_CreateSpacialFields.cs" />
     <Compile Include="Migrations\201504121649336_CreateSpacialFields.Designer.cs">
       <DependentUpon>201504121649336_CreateSpacialFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504130025345_CreatePostcodeField.cs" />
+    <Compile Include="Migrations\201504130025345_CreatePostcodeField.Designer.cs">
+      <DependentUpon>201504130025345_CreatePostcodeField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
@@ -275,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504121649336_CreateSpacialFields.resx">
       <DependentUpon>201504121649336_CreateSpacialFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504130025345_CreatePostcodeField.resx">
+      <DependentUpon>201504130025345_CreatePostcodeField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

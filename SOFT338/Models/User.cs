@@ -40,6 +40,9 @@ namespace SOFT338.Models
         }
     }
 
+    /// <summary>
+    /// Attribute class to provide validation for one unique email address per user.
+    /// </summary>
     public class UniqueEmailAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

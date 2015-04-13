@@ -16,6 +16,9 @@ namespace SOFT338.Models
 
         public DbGeography Location { get; set; }
 
+        [Required, MaxLength(7)]
+        public string Postcode { get; set; }
+
         [NotMapped]
         [Required, RegularExpression(@"^[+\-]?[0-9]{1,3}\.[0-9]{3,}$", ErrorMessage = "The Latitude field must be a valid latitude.")]
         public string Latitude { get; set; }
@@ -46,7 +49,8 @@ namespace SOFT338.Models
                     Id = this.Id,
                     Journey = journey.GetOutputObject(),
                     Latitude = this.Location.Latitude,
-                    Longitude = this.Location.Longitude
+                    Longitude = this.Location.Longitude,
+                    Postcode = this.Postcode
                 };
             }
 
@@ -54,7 +58,8 @@ namespace SOFT338.Models
             {
                 Id = this.Id,
                 Latitude = this.Location.Latitude,
-                Longitude = this.Location.Longitude
+                Longitude = this.Location.Longitude,
+                Postcode = this.Postcode
             };
         }
     }

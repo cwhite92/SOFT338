@@ -19,13 +19,24 @@ namespace SOFT338.Controllers
     {
         [Route("api/v1/journies", Name="GetJournies")]
         [HttpGet]
-        public IQueryable<Journey> GetJourneys()
+        public IHttpActionResult GetJourneys()
         {
-            // TODO: make this not return user data
             int userId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
             var journies = db.Journeys.Where(j => j.UserId == userId);
 
-            return journies;
+            List<object> output = new List<object>();
+
+            foreach (Journey journey in db.Journeys.Where(j => j.UserId == userId))
+            {
+                output.Add(new {
+                    Id = journey.Id,
+                    Title = journey.Title,
+                    Date = journey.Date,
+                    TotalDistance = journey.TotalDistance
+                });
+            }
+
+            return Ok(output);
         }
 
         [ResponseType(typeof(Journey))]
