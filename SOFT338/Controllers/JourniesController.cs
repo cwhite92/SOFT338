@@ -23,7 +23,9 @@ namespace SOFT338.Controllers
         {
             // TODO: make this not return user data
             int userId = Convert.ToInt32(HttpContext.Current.User.Identity.Name);
-            return db.Journeys.Where(j => j.UserId == userId);
+            var journies = db.Journeys.Where(j => j.UserId == userId);
+
+            return journies;
         }
 
         [ResponseType(typeof(Journey))]

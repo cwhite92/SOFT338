@@ -8,6 +8,8 @@ namespace SOFT338.Models
 {
     public class ApiDbContext : DbContext
     {
+        public ApiDbContext() : base("DefaultConnection") { }
+
         public DbSet<User> Users { get; set; }
 
         public System.Data.Entity.DbSet<SOFT338.Models.Journey> Journeys { get; set; }

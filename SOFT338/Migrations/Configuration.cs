@@ -10,7 +10,7 @@ namespace SOFT338.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(SOFT338.Models.ApiDbContext context)

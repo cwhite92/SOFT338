@@ -44,6 +44,11 @@ namespace SOFT338.Models
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null) {
+                // User didn't specify an email, just pass this validation rule for it to be picked up by Required
+                return ValidationResult.Success;
+            }
+
             // Query the Users table for any other user with this email
             using (ApiDbContext db = new ApiDbContext())
             {
